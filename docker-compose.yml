@@ -1,0 +1,39 @@
+version: "3"
+
+### Networks ###
+networks:
+  default: {}
+
+### Services ###
+services:
+  proxy:
+    image: haproxy:1.9-alpine
+    depends_on:
+      - web
+      - api
+    networks:
+      - default
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+
+  web:
+    image: nginx:stable-alpine
+    networks:
+      - default
+    restart: unless-stopped
+
+  api:
+    image: nginx:stable-alpine
+    networks:
+      - default
+    restart: unless-stopped
+
+  static:
+    image: nginx:stable-alpine
+    networks:
+      - default
+    restart: unless-stopped
