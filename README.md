@@ -2,10 +2,10 @@
 
 An example about config HAProxy with SSL and multi backend
 
-## Requirement
+## Requirements
 
 - Docker and docker-compose
-  
+
 ## Usage
 
 - Setup your domain point to your server. In this example, my domain is `example.com`
@@ -13,7 +13,7 @@ An example about config HAProxy with SSL and multi backend
 - Get SSL from Letsencrypt by script `get-ssl.sh`
   
   ```bash
-  $ ./get-ssl example.com,api.example.com,img.example.com name@example.com
+  $ ./get-ssl.sh example.com,api.example.com,img.example.com name@example.com
   ```
   The script will make `example.com.pem` file in root folder of project. 
 
