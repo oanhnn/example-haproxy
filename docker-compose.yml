@@ -21,11 +21,11 @@ services:
     restart: unless-stopped
     volumes:
       - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
-      - ./example.com.pem:/etc/ssl/example.com.pem:ro
+      # - ./example.com.pem:/etc/ssl/example.com.pem:ro
 
   # API service
   api:
-    image: nginx:stable-alpine
+    image: containous/whoami
     networks:
       - default
     restart: unless-stopped
@@ -36,10 +36,12 @@ services:
     networks:
       - default
     restart: unless-stopped
+    volumes:
+      - ./static-assets:/usr/share/nginx/html
 
   # Web site service
   web:
-    image: nginx:stable-alpine
+    image: containous/whoami
     networks:
       - default
     restart: unless-stopped

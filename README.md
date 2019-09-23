@@ -26,9 +26,21 @@ An example about config HAProxy with SSL and multi backend
 - Test
   
   ```bash
-  $ curl https://example.com
-  $ curl https://api.example.com
-  $ curl https://img.example.com
+  # Test matching domains to backends and fallback to web
+  $ curl -H "Host: api.example.com" https://127.0.0.1/
+  $ curl -H "Host: cdn.example.com" https://127.0.0.1/
+  $ curl -H "Host: example.com"     https://127.0.0.1/
+  $ curl -H "Host: abc.com"         https://127.0.0.1/
+
+  # Test force redirect to HTTPS
+  $ curl -H "Host: api.example.com" -I http://127.0.0.1/
+  $ curl -H "Host: cdn.example.com" -I http://127.0.0.1/
+  $ curl -H "Host: example.com"     -I http://127.0.0.1/
+
+  # Test response content-type
+  $ curl -H "Host: api.example.com" -I https://127.0.0.1/api
+  $ curl -H "Host: cdn.example.com" -I https://127.0.0.1/img/avatar.jpg
+  $ curl -H "Host: example.com"     -I https://127.0.0.1/
   ```
 
 ## Contributing
